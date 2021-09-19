@@ -1,0 +1,91 @@
+.App {
+  max-width: 800px;
+  display: block;
+  margin: auto;
+  padding: 30px 10px;
+}
+
+.active {
+  background-color: aqua;
+}
+
+.responses__confirm__container {
+  margin-top: 20px !important;
+  width: 90%;
+  display: block;
+  margin: auto;
+}
+
+.status__nav {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 400px;
+}
+
+.status__line {
+  margin: 10px;
+}
+
+.status__line > div:first-child {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.description {
+  color: var(--off-white);
+  padding: 15px;
+  max-width: 800px;
+}
+
+.input--borderless {
+  border: none;
+}
+
+.input__wrapper {
+  margin: 20px 0px;
+}
+
+.input__label {
+  font-size: 20px;
+}
+
+.button-wrapper {
+  width: 100%;
+  margin: 10px auto;
+  cursor: pointer;
+}
+
+.button-wrapper:hover * {
+  stroke: var(--soft-blue);
+}
+
+.button__wrapper > button:nth-child(2) {
+  margin-left: 30px;
+}
+
+.textarea__container {
+  height: 100%;
+}
+
+textarea {
+  background: var(--background-color);
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.sending {
+  animation: pulse 500ms infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    background: rgb(142, 221, 14);
+  }
+  100% {
+    background: var(--background-color);
+  }
+}
