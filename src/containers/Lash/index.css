@@ -1,0 +1,12 @@
+.sending {
+  animation: pulse 500ms infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    background: rgb(142, 221, 14);
+  }
+  100% {
+    background: var(--background-color);
+  }
+}

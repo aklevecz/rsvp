@@ -4,6 +4,8 @@
   --color: #526972;
   --soft-blue: rgb(130, 130, 214);
   --off-white: rgb(212, 212, 211);
+  --yardy-purple: #8a5da8;
+  --yardy-blue: rgb(129, 242, 239);
 }
 
 body {
@@ -13,7 +15,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--background-color);
+  background: #231f20;
   color: var(--color);
 }
 

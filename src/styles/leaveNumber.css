@@ -1,6 +1,22 @@
 .leave-number__field {
-  font-size: 50px;
-  color: black;
+  font-size: 42px;
+  color: #1defc9;
   height: 50px;
   width: 90%;
+  display: block;
+  margin: auto;
+  background: #dbaaff;
+  padding: 10px;
+}
+
+button.leave-number {
+  background: var(--yardy-blue);
+  color: var(--yardy-purple);
+  border: 3px solid #526972;
+  font-size: 24px;
+  padding: 10px 30px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 500ms;
+  font-weight: bold;
 }

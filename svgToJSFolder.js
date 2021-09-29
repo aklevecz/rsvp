@@ -15,7 +15,9 @@ const folderPath = process.argv.slice(2)[0];
         .replace(/stroke-width/g, "strokeWidth")
         .replace(/enable-background/g, "enableBackground")
         .replace(/font-family/g, "fontFamily")
-        .replace(/font-size/g, "fontSize");
+        .replace(/font-size/g, "fontSize")
+        .replace(/letter-spacing/g, "letterSpacing")
+        .replace(/font-weight/g, "fontWeight");
 
       const template = `
 export function ${file.replace(".svg", "")}(){ return(${svgFile})}
