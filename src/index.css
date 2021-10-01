@@ -6,6 +6,8 @@
   --off-white: rgb(212, 212, 211);
   --yardy-purple: #8a5da8;
   --yardy-blue: rgb(129, 242, 239);
+  --red: rgb(238, 33, 64);
+  --grey: #d2d1d1;
 }
 
 body {
@@ -24,7 +26,7 @@ code {
     monospace;
 }
 
-input {
+/* input {
   height: 20px;
   width: 70%;
   margin: 10px 0px;
@@ -33,9 +35,9 @@ input {
   font-size: 18px;
   padding: 5px;
   border-radius: 10px;
-}
+} */
 
-button {
+/* button {
   background: var(--background-color);
   color: var(--button-text-color);
   border: 3px solid #526972;
@@ -44,7 +46,7 @@ button {
   border-radius: 40px;
   cursor: pointer;
   transition: background-color 500ms;
-}
+} */
 
 button:hover {
   background-color: var(--soft-blue);

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import Services from "./services";
+import { ModalProvider } from "./contexts/Modal";
 // import reportWebVitals from "./reportWebVitals";
 
 const root = document.createElement("div");
@@ -12,7 +13,9 @@ const services = new Services();
 export { services };
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ModalProvider>
+      <App />
+    </ModalProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

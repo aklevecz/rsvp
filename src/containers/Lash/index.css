@@ -1,3 +1,25 @@
+.rsvp__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--red);
+  padding: 20px 0px;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  letter-spacing: 10px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+  transition: color 1s, background 2s;
+}
+
+.rsvp__footer:hover {
+  background: white;
+  color: black;
+}
+
 .sending {
   animation: pulse 500ms infinite alternate;
 }
