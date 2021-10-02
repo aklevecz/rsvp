@@ -13,7 +13,7 @@ export default function RsvpModal({ updateRsvp }: Props) {
         <InputText onChange={updateRsvp} name="email" />
         <InputText onChange={updateRsvp} name="phone" />
       </div>
-      <div className="modal__block">
+      <div className="modal__block" style={{ marginTop: 30 }}>
         <button>Go</button>
       </div>
     </Modal>
