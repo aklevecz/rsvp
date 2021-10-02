@@ -14,6 +14,7 @@
         "source": "/add-entry",
         "function": "addEntry"
       },
+      { "source": "lash-rsvp", "function": "lashRsvp" },
       { "source": "/song-queue", "function": "songQueue" },
       { "source": "/queue-song", "function": "queueSong" },
       { "source": "/raptor", "function": "raptor" },

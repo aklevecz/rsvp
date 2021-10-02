@@ -5,9 +5,15 @@ import "./index.css";
 import { useModalToggle } from "../../contexts/Modal";
 import RsvpModal from "./RsvpModal";
 
+export type RSVP = {
+  name: string;
+  phone: string;
+  email: string;
+};
+
 export default function Lash() {
   const svgRef = useRef<HTMLDivElement>(null);
-  const [rsvp, setRsvp] = useState({ name: "", phone: "", email: "" });
+  const [rsvp, setRsvp] = useState<RSVP>({ name: "", phone: "", email: "" });
   const [marginTop, setMarginTop] = useState(0);
   const { toggleModal } = useModalToggle();
 
@@ -21,13 +27,16 @@ export default function Lash() {
     }
   }, [svgRef]);
 
-  const updateRsvp = (name: string, value: string) => console.log(name, value);
+  const updateRsvp = (name: string, value: string) =>
+    setRsvp({ ...rsvp, [name]: value });
+
+  const submit = () => console.log(rsvp);
 
   return (
     <div style={{ marginTop }} ref={svgRef}>
       <Flyer />
       <RsvpFooter onClick={toggleModal} />
-      <RsvpModal updateRsvp={updateRsvp} />
+      <RsvpModal updateRsvp={updateRsvp} submit={submit} rsvp={rsvp} />
     </div>
   );
 }

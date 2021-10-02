@@ -11,6 +11,12 @@ class Services {
       body: JSON.stringify({ notifyDesc, contactInfo }),
     }).then((r) => r.json());
 
+  public lashRsvp = (name: string, phone: string, email: string) =>
+    fetch(`${this.url}/lash-rsvp`, {
+      method: "POST",
+      body: JSON.stringify({ name, phone, email }),
+    }).then((r) => r.json());
+
   public getRaptor = (uid: string) =>
     fetch(`${this.url}/raptor?raptor=${uid}`).then((r) => {
       if (r.status === 200) {
