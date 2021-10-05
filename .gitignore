@@ -24,3 +24,5 @@ yarn-error.log*
 
 firestore-debug.log
 ui-debug.log
+
+**/**/admin.json
