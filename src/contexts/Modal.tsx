@@ -1,15 +1,20 @@
 import { createContext, useContext, useReducer } from "react";
 
-type Action = { type: "OPEN" } | { type: "TOGGLE" };
+type Action =
+  | { type: "OPEN" }
+  | { type: "TOGGLE" }
+  | { type: "SET_TITLE"; title: string };
 
 type Dispatch = (action: Action) => void;
 
 type State = {
   open: boolean;
+  title: string;
 };
 
 const initialState = {
   open: false,
+  title: "RSVP",
 };
 
 const ModalContext = createContext<
@@ -22,6 +27,8 @@ const reducer = (state: State, action: Action) => {
       return { ...state, open: !state.open };
     case "OPEN":
       return { ...state, open: true };
+    case "SET_TITLE":
+      return { ...state, title: action.title };
     default:
       return state;
   }
@@ -52,8 +59,9 @@ export const useModalToggle = () => {
   const { dispatch, state } = context;
 
   const toggleModal = () => dispatch({ type: "TOGGLE" });
+  const setTitle = (title: string) => dispatch({ type: "SET_TITLE", title });
 
-  return { toggleModal };
+  return { toggleModal, setTitle };
 };
 
 export const useModalState = () => {

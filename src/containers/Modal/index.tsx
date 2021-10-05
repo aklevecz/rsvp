@@ -22,7 +22,7 @@ export default function Modal({
               transition={{ duration: 0.5 }}
               className="modal__content"
             >
-              <div className="modal__title-big">RSVP</div>
+              <div className="modal__title-big">{modalState.title}</div>
               <div className="modal__content__wrapper">{children}</div>
             </motion.div>
             <motion.div

@@ -3,6 +3,7 @@ class Services {
     process.env.NODE_ENV === "development"
       ? "http://localhost:5000"
       : "https://bizza.pizza";
+
   private uid: string = "";
 
   public sendRSVP = (notifyDesc: string, contactInfo: string) =>
@@ -11,10 +12,15 @@ class Services {
       body: JSON.stringify({ notifyDesc, contactInfo }),
     }).then((r) => r.json());
 
-  public lashRsvp = (name: string, phone: string, email: string) =>
+  public lashRsvp = (
+    name: string,
+    phone: string,
+    email: string,
+    notify: boolean
+  ) =>
     fetch(`${this.url}/lash-rsvp`, {
       method: "POST",
-      body: JSON.stringify({ name, phone, email }),
+      body: JSON.stringify({ name, phone, email, notify }),
     }).then((r) => r.json());
 
   public getRaptor = (uid: string) =>

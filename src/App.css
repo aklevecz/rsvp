@@ -84,10 +84,8 @@ textarea {
 @keyframes pulse {
   0% {
     background: rgb(142, 221, 14);
-    fill: rgb(142, 221, 14);
   }
   100% {
     background: var(--background-color);
-    fill: red;
   }
 }

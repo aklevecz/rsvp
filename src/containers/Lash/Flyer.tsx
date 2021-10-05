@@ -18,6 +18,7 @@ const Flyer = React.forwardRef((props, ref) => {
       viewBox="0 0 1080 1053"
       width="100%"
       ref={ref as any}
+      style={{ maxHeight: 680 }}
     >
       <motion.g
         initial={{ scale: 0 }}

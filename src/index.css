@@ -8,6 +8,7 @@
   --yardy-blue: rgb(129, 242, 239);
   --red: rgb(238, 33, 64);
   --grey: #d2d1d1;
+  --lime-green: #86ff86;
 }
 
 body {
@@ -47,11 +48,11 @@ code {
   cursor: pointer;
   transition: background-color 500ms;
 } */
-
-button:hover {
-  background-color: var(--soft-blue);
+@media (hover: hover) {
+  button:hover {
+    background-color: var(--soft-blue);
+  }
 }
-
 input,
 textarea {
   color: white;
@@ -78,4 +79,34 @@ ul > li:nth-child(odd) {
 }
 ul > li:nth-child(even) {
   margin-left: 20px;
+}
+
+input[type="checkbox"]::before {
+  border: 1px solid #808080;
+  content: "";
+  background: #fff;
+  position: relative;
+  display: block;
+  width: 11px;
+  height: 11px;
+}
+
+input[type="checkbox"]::after {
+  position: relative;
+  display: block;
+  left: 2px;
+  top: -11px;
+  width: 7px;
+  height: 7px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #b3b3b3 #dcddde #dcddde #b3b3b3;
+  content: "";
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+button:disabled {
+  background: lightgrey;
+  color: grey;
 }

@@ -1,0 +1,21 @@
+.checkbox__container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.checkbox {
+  width: 40px;
+  height: 40px;
+  min-width: unset;
+  background: var(--red);
+  min-height: unset;
+  transition: background 500ms, border 500ms;
+}
+
+.checkbox.checked {
+  background: var(--lime-green);
+  border: none;
+}

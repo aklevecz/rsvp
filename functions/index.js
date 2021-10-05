@@ -7,7 +7,7 @@ const cors = require("cors")({
 
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./eggsvp-firebase-adminsdk-x6ymx-1b5bae6fcb.json");
+const serviceAccount = require("./admin.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -17,6 +17,7 @@ const RSVPS = "RSVPS";
 const QUEUE = "QUEUE";
 const ANGELES = "ANGELES";
 const CAVE = "CAVE";
+const LASH = "LASH";
 
 const db = new Firestore();
 exports.addEntry = functions.https.onRequest((req, res) => {
@@ -149,6 +150,21 @@ exports.caveSignup = functions.https.onRequest(async (req, res) => {
       .collection(CAVE)
       .doc(email)
       .set({ name, email })
+      .then((resp) => {
+        return res.status(200).send(true);
+      });
+  });
+});
+
+exports.lashRsvp = functions.https.onRequest(async (req, res) => {
+  console.log("HELLO");
+  return cors(req, res, () => {
+    const data = JSON.parse(req.body);
+    const { name, phone, email, notify } = data;
+    return db
+      .collection(LASH)
+      .doc(email)
+      .set({ name, phone, email, notify })
       .then((resp) => {
         return res.status(200).send(true);
       });
