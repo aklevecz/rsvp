@@ -1,0 +1,54 @@
+.fun-aspect {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: white;
+}
+
+.fun-aspect input {
+  background: none;
+  border: 3px solid white;
+  width: 250px;
+  position: relative;
+}
+.fun-aspect-heading {
+  font-size: 5rem;
+  margin: 20px;
+  border: 4px solid white;
+  padding: 14px 20px 20px 20px;
+}
+
+.fun-aspect-body {
+  flex: 0 0 75%;
+  margin: 0px auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  margin: 10px;
+  position: relative;
+}
+
+.floating-text {
+  position: absolute;
+  user-select: none;
+  top: 7px;
+  left: 7px;
+  background: #231f20;
+  z-index: 9;
+  transition: top 500ms;
+  padding: 0px 8px;
+  box-sizing: border-box;
+  border-radius: 18px;
+}
+
+#hole {
+  flex: 0 0 200px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(black, white);
+  margin: 80px auto;
+}

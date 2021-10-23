@@ -5,7 +5,10 @@ import App from "./App";
 import Services from "./services";
 import { ModalProvider } from "./contexts/Modal";
 // import reportWebVitals from "./reportWebVitals";
+import smoothscroll from "smoothscroll-polyfill";
 
+// kick off the polyfill!
+smoothscroll.polyfill();
 const root = document.createElement("div");
 root.id = "root";
 document.body.appendChild(root);
