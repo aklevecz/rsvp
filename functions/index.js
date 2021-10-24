@@ -18,6 +18,7 @@ const QUEUE = "QUEUE";
 const ANGELES = "ANGELES";
 const CAVE = "CAVE";
 const LASH = "LASH";
+const FUN_ASPECT = "FUN_ASPECT";
 
 const db = new Firestore();
 exports.addEntry = functions.https.onRequest((req, res) => {
@@ -157,7 +158,6 @@ exports.caveSignup = functions.https.onRequest(async (req, res) => {
 });
 
 exports.lashRsvp = functions.https.onRequest(async (req, res) => {
-  console.log("HELLO");
   return cors(req, res, () => {
     const data = JSON.parse(req.body);
     const { name, phone, email, notify } = data;
@@ -165,6 +165,20 @@ exports.lashRsvp = functions.https.onRequest(async (req, res) => {
       .collection(LASH)
       .doc(email)
       .set({ name, phone, email, notify })
+      .then((resp) => {
+        return res.status(200).send(true);
+      });
+  });
+});
+
+exports.leaveInfo = functions.https.onRequest(async (req, res) => {
+  return cors(req, res, () => {
+    const data = JSON.parse(req.body);
+    const { info, fingerprint } = data;
+    return db
+      .collection(FUN_ASPECT)
+      .doc(info)
+      .set({ info, fingerprint })
       .then((resp) => {
         return res.status(200).send(true);
       });

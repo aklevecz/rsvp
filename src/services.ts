@@ -46,6 +46,17 @@ class Services {
       method: "POST",
       body: JSON.stringify({ number }),
     }).then((r) => r.json());
+
+  public leaveInfo = (info: string, fingerprint: string) =>
+    fetch(`${this.url}/leave-info`, {
+      method: "POST",
+      body: JSON.stringify({ info, fingerprint }),
+    }).then((r) => r.json());
+
+  public findFingerprint = (fingerprint: string) =>
+    fetch(`${this.url}/find-fingerprint?fingerprint=${fingerprint}`, {
+      method: "GET",
+    }).then((r) => r.json());
 }
 
 export default Services;

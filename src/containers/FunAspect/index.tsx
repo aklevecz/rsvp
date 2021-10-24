@@ -1,84 +1,30 @@
 import "./styles.css";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-const pointInRect = ({ x1, y1, x2, y2 }: any, { x, y }: any) =>
+import Dots from "./Dots";
+import DragStage from "./DragStage";
+import SignupStage from "./SignupStage";
+import FreeStage from "./FreeStage";
+import NoStage from "./NoStage";
+import { fpPromise, services } from "../..";
+import InfoStage from "./InfoStage";
+
+export const pointInRect = ({ x1, y1, x2, y2 }: any, { x, y }: any) =>
   x > x1 && x < x2 && y > y1 && y < y2;
 
-const Dot = ({ idx, holeRef, constraintsRef, done }: any) => {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const controls = useAnimation();
-  const checkPosition = (event: any, info: any) => {
-    if (!holeRef.current) {
-      return;
-    }
-    const { x, y, width, height } = holeRef.current?.getBoundingClientRect();
-    const x1y1 = { x, y };
-    const x2y2 = { x: x + width, y: y + height };
-    const xy = { x: info.point.x, y: info.point.y };
-    const a = pointInRect(
-      { x1: x1y1.x, y1: x1y1.y, x2: x2y2.x, y2: x2y2.y },
-      { x: xy.x, y: xy.y }
-    );
-    if (a) {
-      remove();
-      // setTimeout(() => dot?.remove(), 2000);
-    }
-  };
-
-  const remove = () => {
-    const dot = document.getElementById("dot" + idx);
-    controls.start({ scale: 0 }).then(() => {
-      dot?.remove();
-      const remainingDots = document.querySelectorAll(".dot");
-      console.log(remainingDots.length);
-      if (remainingDots.length === 0) {
-        done();
-      }
-    });
-  };
-
-  const onDragEnd = (event: any, info: any) => {
-    checkPosition(event, info);
-    let lastPosition = info.point.x;
-    function check() {
-      const { x, y } = dotRef.current!.getBoundingClientRect();
-      checkPosition(event, { point: { x, y } });
-      if (lastPosition !== x) {
-        lastPosition = x;
-        requestAnimationFrame(check);
-      }
-    }
-    check();
-  };
-  return (
-    <motion.div
-      style={{
-        background: "white",
-        width: 40,
-        height: 40,
-        borderRadius: "50%",
-        position: "absolute",
-        top: `${Math.random() * 100 - 40}%`,
-        // left: `${Math.random() * 100}%`,
-        left: (idx - 1) * 40,
-      }}
-      ref={dotRef}
-      id={`dot${idx}`}
-      animate={controls}
-      drag
-      dragConstraints={constraintsRef}
-      onDragEnd={onDragEnd}
-      onDrag={checkPosition}
-      whileDrag={{ scale: 1.2 }}
-      dragMomentum={true}
-      className="dot"
-    ></motion.div>
-  );
+export const dotStyle = {
+  background: "white",
+  width: 40,
+  height: 40,
+  borderRadius: "50%",
 };
 
 enum Stages {
   Drag,
+  Free,
   Signup,
+  Info,
+  No,
 }
 
 export default function FunAspect() {
@@ -88,73 +34,84 @@ export default function FunAspect() {
   const constraintsRef = useRef(null);
   const holeRef = useRef<HTMLDivElement>(null);
   const floatingText = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const infoRef = useRef<HTMLInputElement>(null);
+
+  const fingerprintRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    fpPromise.then(async (fp) => {
+      const result = await fp.get();
+      fingerprintRef.current = result.visitorId;
+    });
+  }, []);
 
   const blowUp = () => {
     controls.start({ scale: 5 }).then(() => {
-      setStage(Stages.Signup);
+      setStage(Stages.Free);
       window.scroll({ top: 0, behavior: "smooth" });
-
       controls.start({ scale: 1 }).then(() => {});
     });
   };
 
+  const yes = () => setStage(Stages.Signup);
+  const no = () => setStage(Stages.No);
+
   let text = "FUN ASPECT";
+  if (stage === Stages.Free) {
+    text = "Are you Free Nov 14?";
+  }
   if (stage === Stages.Signup) {
     text = "RSVP?";
   }
+  if (stage === Stages.No) {
+    text = "Ummm";
+  }
+
+  const sendIt = () => {
+    services
+      .leaveInfo(infoRef.current!.value, fingerprintRef.current!)
+      .then((resp) => {
+        if (resp) {
+          setStage(Stages.Info);
+        }
+      });
+  };
 
   return (
     <div className="fun-aspect">
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring" }}
-        onAnimationComplete={() => {
-          bodyControls.start({ scale: 1 }).then(() => {
-            window.scroll({ top: 1000, behavior: "smooth" });
-          });
-        }}
-        className="fun-aspect-heading"
-      >
-        {text}
-      </motion.div>
-
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={bodyControls}
-        className="fun-aspect-body"
-        ref={constraintsRef}
-      >
-        <motion.div animate={controls} ref={holeRef} id="hole" />
-        <div style={{ position: "relative", height: "100%" }}>
-          {[1, 2, 3, 4, 5].map((idx) => {
-            return (
-              <Dot
-                key={idx}
-                idx={idx}
-                constraintsRef={constraintsRef}
-                holeRef={holeRef}
-                done={blowUp}
-              />
-            );
-          })}
-        </div>
-      </motion.div>
+      {stage === Stages.Drag && (
+        <DragStage
+          text={text}
+          bodyControls={bodyControls}
+          constraintsRef={constraintsRef}
+          holeRef={holeRef}
+          blowUp={blowUp}
+          controls={controls}
+        />
+      )}
+      {stage === Stages.Free && (
+        <FreeStage text={text} bodyControls={bodyControls} yes={yes} no={no} />
+      )}
+      {stage === Stages.Signup && (
+        <>
+          <SignupStage
+            text={text}
+            bodyControls={bodyControls}
+            floatingText={floatingText}
+            buttonRef={buttonRef}
+            fingerprint={fingerprintRef.current}
+            infoRef={infoRef}
+          />
+          <Dots ref={buttonRef} sendIt={sendIt} />
+        </>
+      )}
+      {stage === Stages.Info && (
+        <InfoStage text={"SEE YOU THERE"} bodyControls={bodyControls} />
+      )}
+      {stage === Stages.No && (
+        <NoStage text={text} bodyControls={bodyControls} />
+      )}
     </div>
   );
 }
-
-/* <div className="input-container">
-        <span ref={floatingText} className="floating-text">
-          Hello
-        </span>
-        <input
-          onFocus={() => {
-            floatingText.current!.style.top = "-7px";
-          }}
-          onBlur={() => {
-            floatingText.current!.style.top = "7px";
-          }}
-          type="text"
-        />
-      </div> */

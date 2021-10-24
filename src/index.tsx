@@ -7,6 +7,11 @@ import { ModalProvider } from "./contexts/Modal";
 // import reportWebVitals from "./reportWebVitals";
 import smoothscroll from "smoothscroll-polyfill";
 
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+
+// Initialize an agent at application startup.
+export const fpPromise = FingerprintJS.load();
+
 // kick off the polyfill!
 smoothscroll.polyfill();
 const root = document.createElement("div");

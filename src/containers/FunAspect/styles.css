@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .fun-aspect {
   display: flex;
   flex-direction: column;
@@ -9,8 +13,22 @@
   background: none;
   border: 3px solid white;
   width: 250px;
+  height: 50px;
   position: relative;
+  padding-left: 10px;
 }
+
+.fun-aspect button {
+  width: 200px;
+  display: block;
+  font-size: 2rem;
+  background: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  height: 60px;
+}
+
 .fun-aspect-heading {
   font-size: 5rem;
   margin: 20px;
@@ -20,28 +38,34 @@
 
 .fun-aspect-body {
   flex: 0 0 75%;
-  margin: 0px auto;
+  /* margin: 0px auto; */
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
 .input-container {
-  margin: 10px;
+  margin: 10px 20px;
   position: relative;
 }
 
 .floating-text {
+  font-size: 1.4rem;
   position: absolute;
   user-select: none;
-  top: 7px;
+  pointer-events: none;
+  top: 10px;
   left: 7px;
   background: #231f20;
   z-index: 9;
   transition: top 500ms;
-  padding: 0px 8px;
+  padding: 0px 3px;
   box-sizing: border-box;
-  border-radius: 18px;
+  /* border-radius: 18px; */
+}
+
+.floating-text.active {
+  top: -20px;
 }
 
 #hole {
