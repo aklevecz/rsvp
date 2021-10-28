@@ -27,6 +27,16 @@ const SignupStage = ({ text, bodyControls, buttonRef, infoRef }: any) => {
       button.style.display = "none";
     }
   }, [info]);
+
+  useEffect(() => {
+    const fa = document.querySelector(".fun-aspect") as HTMLElement;
+    fa.style.overflow = "hidden";
+    fa.style.height = "100vh";
+    return () => {
+      fa.style.overflow = "auto";
+      fa.style.height = "100%";
+    };
+  }, []);
   return (
     <>
       <motion.div
@@ -53,11 +63,14 @@ const SignupStage = ({ text, bodyControls, buttonRef, infoRef }: any) => {
         animate={{ x: 0, scale: 1 }}
         className="input-container"
       >
-        <span
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 5 }}
           className={`floating-text ${floatingText.floating ? "active" : ""}`}
         >
           {floatingText.text}
-        </span>
+        </motion.span>
         <input
           ref={infoRef}
           onChange={(e: any) => setInfo(e.currentTarget.value)}

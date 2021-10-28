@@ -184,3 +184,19 @@ exports.leaveInfo = functions.https.onRequest(async (req, res) => {
       });
   });
 });
+
+exports.findFingerprint = functions.https.onRequest(async (req, res) => {
+  return cors(req, res, () => {
+    const {
+      query: { fingerprint },
+    } = req;
+    console.log(fingerprint);
+    return db
+      .collection(FUN_ASPECT)
+      .where("fingerprint", "==", fingerprint)
+      .get()
+      .then((resp) => {
+        return res.status(200).send(!!resp.size);
+      });
+  });
+});

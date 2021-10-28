@@ -27,8 +27,14 @@ enum Stages {
   No,
 }
 
-export default function FunAspect() {
-  const [stage, setStage] = useState(Stages.Drag);
+export default function FunAspect({
+  fingerprint,
+  completed,
+}: {
+  fingerprint: string;
+  completed: boolean;
+}) {
+  const [stage, setStage] = useState(completed ? Stages.Info : Stages.Drag);
   const controls = useAnimation();
   const bodyControls = useAnimation();
   const constraintsRef = useRef(null);
@@ -36,15 +42,6 @@ export default function FunAspect() {
   const floatingText = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const infoRef = useRef<HTMLInputElement>(null);
-
-  const fingerprintRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    fpPromise.then(async (fp) => {
-      const result = await fp.get();
-      fingerprintRef.current = result.visitorId;
-    });
-  }, []);
 
   const blowUp = () => {
     controls.start({ scale: 5 }).then(() => {
@@ -69,13 +66,11 @@ export default function FunAspect() {
   }
 
   const sendIt = () => {
-    services
-      .leaveInfo(infoRef.current!.value, fingerprintRef.current!)
-      .then((resp) => {
-        if (resp) {
-          setStage(Stages.Info);
-        }
-      });
+    services.leaveInfo(infoRef.current!.value, fingerprint!).then((resp) => {
+      if (resp) {
+        setStage(Stages.Info);
+      }
+    });
   };
 
   return (
@@ -100,14 +95,14 @@ export default function FunAspect() {
             bodyControls={bodyControls}
             floatingText={floatingText}
             buttonRef={buttonRef}
-            fingerprint={fingerprintRef.current}
+            fingerprint={fingerprint}
             infoRef={infoRef}
           />
           <Dots ref={buttonRef} sendIt={sendIt} />
         </>
       )}
       {stage === Stages.Info && (
-        <InfoStage text={"SEE YOU THERE"} bodyControls={bodyControls} />
+        <InfoStage text={"SEE YOU THERE :)"} bodyControls={bodyControls} />
       )}
       {stage === Stages.No && (
         <NoStage text={text} bodyControls={bodyControls} />

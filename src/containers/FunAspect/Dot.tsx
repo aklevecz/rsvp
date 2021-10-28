@@ -55,7 +55,7 @@ const Dot = ({ idx, holeRef, constraintsRef, done }: any) => {
         position: "absolute",
         top: `${Math.random() * 100 - 40}%`,
         // left: `${Math.random() * 100}%`,
-        left: (idx - 1) * 70 + 30,
+        left: (idx - 1) * 70 + 10,
       }}
       ref={dotRef}
       id={`dot${idx}`}
