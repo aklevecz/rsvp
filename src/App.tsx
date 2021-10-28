@@ -15,7 +15,7 @@ function App() {
   });
   useEffect(() => {
     window.scrollTo(0, 0);
-    fpPromise.then(async (fp) => {
+    fpPromise.then(async (fp: any) => {
       const result = await fp.get();
       services
         .findFingerprint(result.visitorId)
