@@ -177,7 +177,7 @@ exports.leaveInfo = functions.https.onRequest(async (req, res) => {
     const { info, fingerprint } = data;
     return db
       .collection(FUN_ASPECT)
-      .doc(info)
+      .doc(fingerprint)
       .set({ info, fingerprint })
       .then((resp) => {
         return res.status(200).send(true);
@@ -185,18 +185,37 @@ exports.leaveInfo = functions.https.onRequest(async (req, res) => {
   });
 });
 
+const getByFingerprint = (fingerprint) =>
+  db.collection(FUN_ASPECT).doc(fingerprint).get();
+
 exports.findFingerprint = functions.https.onRequest(async (req, res) => {
   return cors(req, res, () => {
     const {
       query: { fingerprint },
     } = req;
-    console.log(fingerprint);
-    return db
-      .collection(FUN_ASPECT)
-      .where("fingerprint", "==", fingerprint)
-      .get()
-      .then((resp) => {
-        return res.status(200).send(!!resp.size);
-      });
+    return getByFingerprint(fingerprint).then((resp) => {
+      let data = { complete: false };
+      if (resp.data()) {
+        data = resp.data();
+        return res.status(200).send({ ...data, complete: true });
+      }
+      return res.status(200).send({ complete: false });
+    });
   });
 });
+
+exports.updateInfoByFingerprint = functions.https.onRequest(
+  async (req, res) => {
+    return cors(req, res, () => {
+      const data = JSON.parse(req.body);
+      const { fingerprint, info } = data;
+      return db
+        .collection(FUN_ASPECT)
+        .doc(fingerprint)
+        .update({ info })
+        .then((r) => {
+          return res.status(200).send(true);
+        });
+    });
+  }
+);

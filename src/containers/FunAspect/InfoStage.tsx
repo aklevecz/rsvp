@@ -1,12 +1,14 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { useModalToggle } from "../../contexts/Modal";
 import { Arrow } from "./Arrow";
 import { At } from "./At";
 import { Lash } from "./Lash";
 import { PlaceTime } from "./PlaceTime";
 import { SeeYouThere } from "./SeeYouThere";
 import { Smile } from "./Smile";
+import UpdateInfoModal from "./UpdateInfoModal";
 import { Volta } from "./Volta";
 
 function FadeInWhenVisible({ children, margin = 0 }: any) {
@@ -37,7 +39,17 @@ function FadeInWhenVisible({ children, margin = 0 }: any) {
     </motion.div>
   );
 }
-const InfoStage = ({ text, bodyControls }: any) => {
+const InfoStage = ({
+  text,
+  bodyControls,
+  userInfo,
+  fingerprint,
+  updateFingerprint,
+}: any) => {
+  const { toggleModal, setTitle } = useModalToggle();
+  useEffect(() => {
+    setTitle("Your Info");
+  }, []);
   return (
     <>
       <motion.div
@@ -48,6 +60,11 @@ const InfoStage = ({ text, bodyControls }: any) => {
       >
         <Arrow />
       </motion.div>
+      {userInfo && (
+        <motion.span onClick={toggleModal} className="update-info">
+          UPDATE INFO
+        </motion.span>
+      )}
       <motion.div
         initial={{ x: -500 }}
         animate={{ x: 0 }}
@@ -97,6 +114,12 @@ const InfoStage = ({ text, bodyControls }: any) => {
           THE LASH - NOV 14 - 9PM
         </div>
       </motion.div> */}
+      <UpdateInfoModal
+        userInfo={userInfo}
+        fingerprint={fingerprint}
+        toggleModal={toggleModal}
+        updateFingerprint={updateFingerprint}
+      />
     </>
   );
 };

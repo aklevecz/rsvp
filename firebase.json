@@ -21,6 +21,10 @@
       { "source": "/leave-number", "function": "leaveNumber" },
       { "source": "/leave-info", "function": "leaveInfo" },
       { "source": "/find-fingerprint", "function": "findFingerprint" },
+      {
+        "source": "/update-info-by-fingerprint",
+        "function": "updateInfoByFingerprint"
+      },
       { "source": "**", "destination": "/index.html" }
     ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]

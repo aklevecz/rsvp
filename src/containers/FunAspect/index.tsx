@@ -30,9 +30,13 @@ enum Stages {
 export default function FunAspect({
   fingerprint,
   completed,
+  info,
+  updateFingerprint,
 }: {
   fingerprint: string;
   completed: boolean;
+  info: string;
+  updateFingerprint: () => void;
 }) {
   const [stage, setStage] = useState(completed ? Stages.Info : Stages.Drag);
   const controls = useAnimation();
@@ -102,7 +106,13 @@ export default function FunAspect({
         </>
       )}
       {stage === Stages.Info && (
-        <InfoStage text={"SEE YOU THERE :)"} bodyControls={bodyControls} />
+        <InfoStage
+          text={"SEE YOU THERE :)"}
+          bodyControls={bodyControls}
+          userInfo={info}
+          fingerprint={fingerprint}
+          updateFingerprint={updateFingerprint}
+        />
       )}
       {stage === Stages.No && (
         <NoStage text={text} bodyControls={bodyControls} />

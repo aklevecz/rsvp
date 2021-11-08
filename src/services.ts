@@ -57,6 +57,12 @@ class Services {
     fetch(`${this.url}/find-fingerprint?fingerprint=${fingerprint}`, {
       method: "GET",
     }).then((r) => r.json());
+
+  public updateInfoWithFingerprint = (fingerprint: string, info: string) =>
+    fetch(`${this.url}/update-info-by-fingerprint`, {
+      method: "POST",
+      body: JSON.stringify({ info, fingerprint }),
+    }).then((r) => r.json());
 }
 
 export default Services;

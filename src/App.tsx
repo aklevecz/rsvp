@@ -11,26 +11,36 @@ import Hole from "./Hole";
 function App() {
   const [fingerprint, setFingerprint] = useState({
     value: "",
-    completed: false,
+    data: { complete: false, info: "" },
   });
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    fpPromise.then(async (fp: any) => {
+
+  const updateFingerprint = () => {
+    fpPromise.then(async (fp) => {
       const result = await fp.get();
       services
         .findFingerprint(result.visitorId)
-        .then((exists) => {
+        .then((data) => {
           setTimeout(
             () =>
-              setFingerprint({ value: result.visitorId, completed: exists }),
-            3000
+              setFingerprint({
+                value: result.visitorId,
+                data,
+              }),
+            0
           );
         })
         .catch(() => {
-          setFingerprint({ value: "chicken", completed: false });
+          setFingerprint({
+            value: "",
+            data: { complete: false, info: "" },
+          });
         });
       // fingerprintRef.current = result.visitorId;
     });
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    updateFingerprint();
   }, []);
 
   return (
@@ -43,7 +53,9 @@ function App() {
             {fingerprint.value && (
               <FunAspect
                 fingerprint={fingerprint.value}
-                completed={fingerprint.completed}
+                completed={fingerprint.data.complete}
+                info={fingerprint.data.info}
+                updateFingerprint={updateFingerprint}
               />
             )}
           </Route>

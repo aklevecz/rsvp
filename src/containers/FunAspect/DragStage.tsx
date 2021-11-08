@@ -20,7 +20,7 @@ const DragStage = ({
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ type: "spring", duration: 1 }}
+        transition={{ type: "spring", duration: 2 }}
         onAnimationComplete={() => {
           bodyControls.start({ scale: 1 }).then(() => {
             window.scroll({ top: 1000, behavior: "smooth" });
@@ -38,7 +38,7 @@ const DragStage = ({
         className="fun-aspect-body"
         ref={constraintsRef}
       >
-        <motion.div animate={controls} ref={holeRef} className="hole" />
+        <motion.div animate={controls} ref={holeRef} id="hole" />
         <div
           style={{
             position: "relative",

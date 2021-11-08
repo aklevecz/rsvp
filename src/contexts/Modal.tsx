@@ -14,7 +14,7 @@ type State = {
 
 const initialState = {
   open: false,
-  title: "RSVP",
+  title: "",
 };
 
 const ModalContext = createContext<
@@ -40,7 +40,6 @@ const ModalProvider = ({
   children: JSX.Element | JSX.Element[];
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const value = { state, dispatch };
   return (
     <ModalContext.Provider value={value}>{children}</ModalContext.Provider>

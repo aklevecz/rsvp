@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useModalState, useModalToggle } from "../../contexts/Modal";
 import "./index.css";
@@ -10,6 +11,19 @@ export default function Modal({
 }) {
   const modalState = useModalState();
   const { toggleModal } = useModalToggle();
+
+  useEffect(() => {
+    if (modalState.open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modalState]);
+
   return createPortal(
     <AnimatePresence>
       {modalState.open && (

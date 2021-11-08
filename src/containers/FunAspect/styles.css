@@ -20,11 +20,13 @@ body {
 
 .fun-aspect input {
   background: none;
+  color: white;
   border: 3px solid white;
   width: 250px;
   height: 50px;
   position: relative;
   padding-left: 10px;
+  font-size: 1.2rem;
 }
 
 .fun-aspect button {
@@ -32,6 +34,7 @@ body {
   display: block;
   font-size: 2rem;
   background: white;
+  color: black;
   border: none;
   border-radius: 25px;
   padding: 10px;
@@ -91,4 +94,25 @@ body {
   left: 20%;
   top: 0%;
   font-size: 5rem;
+}
+
+.update-info {
+  border: 2px solid white;
+  padding: 10px;
+  position: fixed;
+  right: 20px;
+  font-size: 1rem;
+  top: 70px;
+  cursor: pointer;
+  user-select: none;
+  background-color: black;
+  z-index: 999;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  background: black;
+  margin: auto;
+  border-radius: 50%;
 }
